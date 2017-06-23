@@ -35,8 +35,8 @@ class MainMenu: SKScene {
         }
         
         // Creates GameScene
-        guard let scene = GameScene(fileNamed: "GameScene") else {
-            print ("Could not make GameScene")
+        guard let scene = GameScene.level(1) else {
+            print ("Could not load GameScene level 1")
             return
         }
         

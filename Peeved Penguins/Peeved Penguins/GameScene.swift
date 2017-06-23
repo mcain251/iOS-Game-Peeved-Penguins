@@ -34,12 +34,21 @@ class GameScene: SKScene {
         penguin.position.y = catapultArm.position.y + 50
         
         // Apply impulse to penguin
-        let launchImpulse = CGVector(dx: 200, dy: 0)
+        let launchImpulse = CGVector(dx: 400, dy: 0)
         penguin.physicsBody?.applyImpulse(launchImpulse)
     }
     
     // Called in each frame
     override func update(_ currentTime: CFTimeInterval) {
         
+    }
+    
+    // Returns a specific level
+    class func level(_ levelNumber: Int) -> GameScene? {
+        guard let scene = GameScene(fileNamed: "Level_\(levelNumber)") else {
+            return nil
+        }
+        scene.scaleMode = .aspectFill
+        return scene
     }
 }
