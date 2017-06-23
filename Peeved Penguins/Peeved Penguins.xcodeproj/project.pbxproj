@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0F527CCB1EFD8DD8008B33F3 /* Bear.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0F527CCA1EFD8DD8008B33F3 /* Bear.sks */; };
 		0F527CCD1EFD900B008B33F3 /* CharacterActions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0F527CCC1EFD900B008B33F3 /* CharacterActions.sks */; };
+		0F527CCF1EFD92BE008B33F3 /* Penguin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F527CCE1EFD92BE008B33F3 /* Penguin.swift */; };
 		0FC333341EFD8BB300BF0E01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC333331EFD8BB200BF0E01 /* AppDelegate.swift */; };
 		0FC333361EFD8BB300BF0E01 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0FC333351EFD8BB300BF0E01 /* GameScene.sks */; };
 		0FC333381EFD8BB300BF0E01 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0FC333371EFD8BB300BF0E01 /* Actions.sks */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		0F527CCA1EFD8DD8008B33F3 /* Bear.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bear.sks; sourceTree = "<group>"; };
 		0F527CCC1EFD900B008B33F3 /* CharacterActions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = CharacterActions.sks; path = ../CharacterActions.sks; sourceTree = "<group>"; };
+		0F527CCE1EFD92BE008B33F3 /* Penguin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Penguin.swift; sourceTree = "<group>"; };
 		0FC333301EFD8BB200BF0E01 /* Peeved Penguins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Peeved Penguins.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FC333331EFD8BB200BF0E01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FC333351EFD8BB300BF0E01 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				0F527CCC1EFD900B008B33F3 /* CharacterActions.sks */,
 				0FC333331EFD8BB200BF0E01 /* AppDelegate.swift */,
 				0F527CCA1EFD8DD8008B33F3 /* Bear.sks */,
+				0F527CCE1EFD92BE008B33F3 /* Penguin.swift */,
 				0FC333351EFD8BB300BF0E01 /* GameScene.sks */,
 				0FC333371EFD8BB300BF0E01 /* Actions.sks */,
 				0FC333391EFD8BB300BF0E01 /* GameScene.swift */,
@@ -162,6 +165,7 @@
 			files = (
 				0FC3333A1EFD8BB300BF0E01 /* GameScene.swift in Sources */,
 				0FC3333C1EFD8BB300BF0E01 /* GameViewController.swift in Sources */,
+				0F527CCF1EFD92BE008B33F3 /* Penguin.swift in Sources */,
 				0FC333341EFD8BB300BF0E01 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
