@@ -188,8 +188,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if contact.collisionImpulse > 2.0 {
                 
                 // Kill Seal
-                if contactA.categoryBitMask == 2 { removeSeal(node: nodeA) }
-                if contactB.categoryBitMask == 2 { removeSeal(node: nodeB) }
+                if contactA.categoryBitMask == 2 {
+                    removeSeal(node: nodeA)
+                }
+                if contactB.categoryBitMask == 2 {
+                    removeSeal(node: nodeB)
+                }
             }
         }
     }
@@ -197,12 +201,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Called when seal dies
     func removeSeal(node: SKNode) {
 
+        
+        
         // Create our hero death action
         let sealDeath = SKAction.run({
+            
+            // Load article effect
+            let particles = SKEmitterNode(fileNamed: "Poof")!
+            
+            // Position particles at the Seal node
+            particles.position = node.convert(node.position, to: self)
+            
+            // Add particles to scene
+            self.addChild(particles)
+            let wait = SKAction.wait(forDuration: 5)
+            let removeParticles = SKAction.removeFromParent()
+            let seq = SKAction.sequence([wait, removeParticles])
+            particles.run(seq)
+            
             // Remove seal node from scene
             node.removeFromParent()
         })
         self.run(sealDeath)
+        
+        // Play SFX
+        let sound = SKAction.playSoundFileNamed("sfx_seal.caf", waitForCompletion: false)
+        self.run(sound)
     }
     
     // Returns a specific level
