@@ -17,6 +17,10 @@ class GameScene: SKScene {
     
     // Game objects
     var catapultArm: SKSpriteNode!
+    var catapult: SKSpriteNode!
+    var cantileverNode: SKSpriteNode!
+    var touchNode: SKSpriteNode!
+    var touchJoint: SKPhysicsJointSpring?
     
     // Camera objects
     var cameraNode: SKCameraNode!
@@ -28,8 +32,11 @@ class GameScene: SKScene {
     // Set up scene
     override func didMove(to view: SKView) {
         
-        // Set reference to catapultArm
+        // Set reference to catapult parts
         catapultArm = childNode(withName: "catapultArm") as! SKSpriteNode
+        catapult = childNode(withName: "catapult") as! SKSpriteNode
+        cantileverNode = childNode(withName: "cantileverNode") as! SKSpriteNode
+        touchNode = childNode(withName: "touchNode") as! SKSpriteNode
         
         // Set reference to cameraNode and make it the camera
         cameraNode = childNode(withName: "cameraNode") as! SKCameraNode
@@ -51,27 +58,66 @@ class GameScene: SKScene {
             // Start GameScene
             view.presentScene(scene)
         }
+        
+        // Set up catapult physics
+        setupCatapult()
+    }
+    
+    // Sets up the catapult joints
+    func setupCatapult() {
+        
+        // Pin joint
+        var pinLocation = catapultArm.position
+        pinLocation.x += -10
+        pinLocation.y += -70
+        let catapultJoint = SKPhysicsJointPin.joint(
+            withBodyA:catapult.physicsBody!,
+            bodyB: catapultArm.physicsBody!,
+            anchor: pinLocation)
+        physicsWorld.add(catapultJoint)
+        
+        // Spring joint
+        var anchorAPosition = catapultArm.position
+        anchorAPosition.x += 0
+        anchorAPosition.y += 50
+        let catapultSpringJoint = SKPhysicsJointSpring.joint(withBodyA: catapultArm.physicsBody!, bodyB: cantileverNode.physicsBody!, anchorA: anchorAPosition, anchorB: cantileverNode.position)
+        physicsWorld.add(catapultSpringJoint)
+        catapultSpringJoint.frequency = 6
+        catapultSpringJoint.damping = 0.5
     }
     
     // Called when screen is first touched
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        // Make a Penguin
-        let penguin = Penguin()
+        // Get the first touch
+        let touch = touches.first!
         
-        // Add the penguin to this scene
-        addChild(penguin)
+        // Find the location of that touch in this view
+        let location = touch.location(in: self)
         
-        // Move penguin to the catapult bucket area
-        penguin.position.x = catapultArm.position.x + 32
-        penguin.position.y = catapultArm.position.y + 50
+        // Find the node at that location
+        let nodeAtPoint = atPoint(location)
         
-        // Apply impulse to penguin
-        let launchImpulse = CGVector(dx: 400, dy: 0)
-        penguin.physicsBody?.applyImpulse(launchImpulse)
-        
-        // Set camera to follow penguin
-        cameraTarget = penguin
+        // Attaches the touchNode if the catapultArm is touched
+        if nodeAtPoint.name == "catapultArm" {
+            touchNode.position = location
+            touchJoint = SKPhysicsJointSpring.joint(withBodyA: touchNode.physicsBody!, bodyB: catapultArm.physicsBody!, anchorA: location, anchorB: location)
+            physicsWorld.add(touchJoint!)
+        }
+    }
+    
+    // Called during touch motion
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        let location = touch.location(in: self)
+        touchNode.position = location
+    }
+    
+    // Called when touch is released
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touchJoint = touchJoint {
+            physicsWorld.remove(touchJoint)
+        }
     }
     
     // Called in each frame
