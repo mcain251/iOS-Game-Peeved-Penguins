@@ -13,7 +13,7 @@ func clamp<T: Comparable>(value: T, lower: T, upper: T) -> T {
     return min(max(value, lower), upper)
 }
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Constants
     let force: CGFloat = 350
@@ -52,6 +52,9 @@ class GameScene: SKScene {
         
         // Set reference to restart button
         restartButton = childNode(withName: "//restartButton") as! MSButtonNode
+        
+        // Set physics contact delegate
+        physicsWorld.contactDelegate = self
         
         restartButton.selectedHandler = {
             // Creates GameScene
@@ -118,6 +121,8 @@ class GameScene: SKScene {
         addChild(penguin)
         penguin.position.x += catapultArm.position.x + 20
         penguin.position.y += catapultArm.position.y + 50
+        penguin.physicsBody?.categoryBitMask = 1
+        penguin.physicsBody?.collisionBitMask = 14
         
         // Pins the penguin to the catapult bowl
         penguin.physicsBody?.usesPreciseCollisionDetection = true
@@ -165,6 +170,41 @@ class GameScene: SKScene {
         
         // Follows penguin
         moveCamera()
+    }
+    
+    // Called when a physics contact occurs
+    func didBegin(_ contact: SKPhysicsContact) {
+        
+        // Get references to the bodies involved in the collision
+        let contactA:SKPhysicsBody = contact.bodyA
+        let contactB:SKPhysicsBody = contact.bodyB
+      
+        // Get references to the physics body parent SKSpriteNode
+        let nodeA = contactA.node as! SKSpriteNode
+        let nodeB = contactB.node as! SKSpriteNode
+        
+        // Check if either physics bodies was a seal
+        if contactA.categoryBitMask == 2 || contactB.categoryBitMask == 2 {
+            
+            // Was the collision more than a gentle nudge?
+            if contact.collisionImpulse > 2.0 {
+                
+                // Kill Seal
+                if contactA.categoryBitMask == 2 { removeSeal(node: nodeA) }
+                if contactB.categoryBitMask == 2 { removeSeal(node: nodeB) }
+            }
+        }
+    }
+    
+    // Called when seal dies
+    func removeSeal(node: SKNode) {
+
+        // Create our hero death action
+        let sealDeath = SKAction.run({
+            // Remove seal node from scene
+            node.removeFromParent()
+        })
+        self.run(sealDeath)
     }
     
     // Returns a specific level
