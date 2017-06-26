@@ -121,9 +121,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(penguin)
         penguin.position.x += catapultArm.position.x + 20
         penguin.position.y += catapultArm.position.y + 50
-        penguin.physicsBody?.categoryBitMask = 1
-        penguin.physicsBody?.collisionBitMask = 14
-        
+
         // Pins the penguin to the catapult bowl
         penguin.physicsBody?.usesPreciseCollisionDetection = true
         penguinJoint = SKPhysicsJointPin.joint(withBodyA: catapultArm.physicsBody!, bodyB: penguin.physicsBody!, anchor: penguin.position)

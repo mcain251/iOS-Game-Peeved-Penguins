@@ -13,6 +13,7 @@
 		0F527CD11EFD9725008B33F3 /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0F527CD01EFD9725008B33F3 /* MainMenu.sks */; };
 		0F527CD31EFD97D1008B33F3 /* MSButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F527CD21EFD97D1008B33F3 /* MSButtonNode.swift */; };
 		0F527CD51EFD98FE008B33F3 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F527CD41EFD98FE008B33F3 /* MainMenu.swift */; };
+		0FBC51541F01BF1D0060B110 /* Seal.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0FBC51531F01BF1D0060B110 /* Seal.sks */; };
 		0FC333341EFD8BB300BF0E01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC333331EFD8BB200BF0E01 /* AppDelegate.swift */; };
 		0FC333361EFD8BB300BF0E01 /* Level_1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0FC333351EFD8BB300BF0E01 /* Level_1.sks */; };
 		0FC333381EFD8BB300BF0E01 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0FC333371EFD8BB300BF0E01 /* Actions.sks */; };
@@ -31,6 +32,7 @@
 		0F527CD01EFD9725008B33F3 /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		0F527CD21EFD97D1008B33F3 /* MSButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSButtonNode.swift; sourceTree = "<group>"; };
 		0F527CD41EFD98FE008B33F3 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		0FBC51531F01BF1D0060B110 /* Seal.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Seal.sks; sourceTree = "<group>"; };
 		0FC333301EFD8BB200BF0E01 /* Peeved Penguins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Peeved Penguins.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FC333331EFD8BB200BF0E01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FC333351EFD8BB300BF0E01 /* Level_1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_1.sks; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				0FC333351EFD8BB300BF0E01 /* Level_1.sks */,
 				0FC333371EFD8BB300BF0E01 /* Actions.sks */,
 				0FC333391EFD8BB300BF0E01 /* GameScene.swift */,
+				0FBC51531F01BF1D0060B110 /* Seal.sks */,
 				0FC3333B1EFD8BB300BF0E01 /* GameViewController.swift */,
 				0FC3333D1EFD8BB300BF0E01 /* Main.storyboard */,
 				0FC333401EFD8BB300BF0E01 /* Assets.xcassets */,
@@ -162,6 +165,7 @@
 				0FC3334C1EFD8C7500BF0E01 /* assets.atlas in Resources */,
 				0FC333411EFD8BB300BF0E01 /* Assets.xcassets in Resources */,
 				0FC333441EFD8BB300BF0E01 /* LaunchScreen.storyboard in Resources */,
+				0FBC51541F01BF1D0060B110 /* Seal.sks in Resources */,
 				0FC333381EFD8BB300BF0E01 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

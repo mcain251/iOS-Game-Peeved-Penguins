@@ -21,6 +21,7 @@ class Penguin: SKSpriteNode {
         // Set physics properties
         physicsBody = SKPhysicsBody(circleOfRadius: size.width / 2)
         physicsBody?.categoryBitMask = 1
+        physicsBody?.collisionBitMask = 14
         physicsBody?.friction = 0.6
         physicsBody?.mass = 0.5
     }
