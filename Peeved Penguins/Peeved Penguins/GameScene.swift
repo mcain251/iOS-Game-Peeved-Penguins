@@ -15,12 +15,20 @@ func clamp<T: Comparable>(value: T, lower: T, upper: T) -> T {
 
 class GameScene: SKScene {
     
+    // Constants
+    let force: CGFloat = 350
+    
     // Game objects
     var catapultArm: SKSpriteNode!
     var catapult: SKSpriteNode!
+    
+    // Helper nodes
     var cantileverNode: SKSpriteNode!
     var touchNode: SKSpriteNode!
+    
+    // Joints
     var touchJoint: SKPhysicsJointSpring?
+    var penguinJoint: SKPhysicsJointPin?
     
     // Camera objects
     var cameraNode: SKCameraNode!
@@ -104,6 +112,20 @@ class GameScene: SKScene {
             touchJoint = SKPhysicsJointSpring.joint(withBodyA: touchNode.physicsBody!, bodyB: catapultArm.physicsBody!, anchorA: location, anchorB: location)
             physicsWorld.add(touchJoint!)
         }
+        
+        // Initializes a penguin
+        let penguin = Penguin()
+        addChild(penguin)
+        penguin.position.x += catapultArm.position.x + 20
+        penguin.position.y += catapultArm.position.y + 50
+        
+        // Pins the penguin to the catapult bowl
+        penguin.physicsBody?.usesPreciseCollisionDetection = true
+        penguinJoint = SKPhysicsJointPin.joint(withBodyA: catapultArm.physicsBody!, bodyB: penguin.physicsBody!, anchor: penguin.position)
+        physicsWorld.add(penguinJoint!)
+        
+        // Sets camera to follow penguin
+        cameraTarget = penguin
     }
     
     // Called during touch motion
@@ -117,6 +139,24 @@ class GameScene: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touchJoint = touchJoint {
             physicsWorld.remove(touchJoint)
+        }
+        
+        if let penguinJoint = penguinJoint {
+            physicsWorld.remove(penguinJoint)
+            
+            // Check if there is a penguin assigned to the cameraTarget
+            guard let penguin = cameraTarget else {
+                return
+            }
+            
+            // Generate a vector and a force based on the angle of the arm.
+            let r = catapultArm.zRotation
+            let dx = cos(r) * force
+            let dy = sin(r) * force
+            
+            // Apply an impulse at the vector.
+            let v = CGVector(dx: dx, dy: dy)
+            penguin.physicsBody?.applyImpulse(v)
         }
     }
     
