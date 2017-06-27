@@ -71,7 +71,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
             // Ensure correct aspect mode
-            scene.scaleMode = .aspectFill
+            scene.scaleMode = .aspectFit
             
             // Start GameScene
             view.presentScene(scene)
@@ -121,21 +121,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             touchNode.position = location
             touchJoint = SKPhysicsJointSpring.joint(withBodyA: touchNode.physicsBody!, bodyB: catapultArm.physicsBody!, anchorA: location, anchorB: location)
             physicsWorld.add(touchJoint!)
-        }
-        
-        // Initializes a penguin
-        let penguin = Penguin()
-        addChild(penguin)
-        penguin.position.x += catapultArm.position.x + 20
-        penguin.position.y += catapultArm.position.y + 50
+            
+            // Initializes a penguin
+            let penguin = Penguin()
+            addChild(penguin)
+            penguin.position.x += catapultArm.position.x + 20
+            penguin.position.y += catapultArm.position.y + 50
 
-        // Pins the penguin to the catapult bowl
-        penguin.physicsBody?.usesPreciseCollisionDetection = true
-        penguinJoint = SKPhysicsJointPin.joint(withBodyA: catapultArm.physicsBody!, bodyB: penguin.physicsBody!, anchor: penguin.position)
-        physicsWorld.add(penguinJoint!)
-        
-        // Sets camera to follow penguin
-        cameraTarget = penguin
+            // Pins the penguin to the catapult bowl
+            penguin.physicsBody?.usesPreciseCollisionDetection = true
+            penguinJoint = SKPhysicsJointPin.joint(withBodyA: catapultArm.physicsBody!, bodyB: penguin.physicsBody!, anchor: penguin.position)
+            physicsWorld.add(penguinJoint!)
+            
+            // Sets camera to follow penguin
+            cameraTarget = penguin
+        }
     }
     
     // Called during touch motion
@@ -243,7 +243,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let scene = GameScene(fileNamed: "Level_\(levelNumber)") else {
             return nil
         }
-        scene.scaleMode = .aspectFill
+        scene.scaleMode = .aspectFit
         return scene
     }
     
@@ -273,7 +273,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         // Check if penguin is slow
-        if cameraTarget.physicsBody!.joints.count == 0 && cameraTarget.physicsBody!.velocity.length() < 0.3 {
+        if cameraTarget.physicsBody!.joints.count == 0 && cameraTarget.physicsBody!.velocity.length() < 1 {
             resetCamera()
         }
         

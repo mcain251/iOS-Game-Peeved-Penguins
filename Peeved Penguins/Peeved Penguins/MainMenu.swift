@@ -41,12 +41,12 @@ class MainMenu: SKScene {
         }
         
         // Ensure correct aspect mode
-        scene.scaleMode = .aspectFill
+        scene.scaleMode = .aspectFit
         
         // Show debug
-        skView.showsPhysics = true
-        skView.showsDrawCount = true
-        skView.showsFPS = true
+//        skView.showsPhysics = true
+//        skView.showsDrawCount = true
+//        skView.showsFPS = true
         
         // Start GameScene
         skView.presentScene(scene)
