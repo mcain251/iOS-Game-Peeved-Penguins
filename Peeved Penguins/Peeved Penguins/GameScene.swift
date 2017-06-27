@@ -16,7 +16,7 @@ func clamp<T: Comparable>(value: T, lower: T, upper: T) -> T {
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Constants
-    let force: CGFloat = 350
+    let force: CGFloat = 500
     
     // Game objects
     var catapultArm: SKSpriteNode!
@@ -93,8 +93,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         anchorAPosition.y += 50
         let catapultSpringJoint = SKPhysicsJointSpring.joint(withBodyA: catapultArm.physicsBody!, bodyB: cantileverNode.physicsBody!, anchorA: anchorAPosition, anchorB: cantileverNode.position)
         physicsWorld.add(catapultSpringJoint)
-        catapultSpringJoint.frequency = 6
-        catapultSpringJoint.damping = 0.5
+        catapultSpringJoint.frequency = 4
+        catapultSpringJoint.damping = 0.75
     }
     
     // Called when screen is first touched
@@ -154,12 +154,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             // Generate a vector and a force based on the angle of the arm.
             let r = catapultArm.zRotation
-            let dx = cos(r) * force
-            let dy = sin(r) * force
+            let nf = force * r
+            let dx = nf + 25
+            let dy = nf
             
             // Apply an impulse at the vector.
             let v = CGVector(dx: dx, dy: dy)
-            penguin.physicsBody?.applyImpulse(v)
+            penguin.physicsBody?.velocity = v
         }
     }
     
