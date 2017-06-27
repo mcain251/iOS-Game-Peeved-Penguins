@@ -13,6 +13,13 @@ func clamp<T: Comparable>(value: T, lower: T, upper: T) -> T {
     return min(max(value, lower), upper)
 }
 
+// length function for CGVectors
+extension CGVector {
+    public func length() -> CGFloat {
+        return CGFloat(sqrt(dx*dx + dy*dy))
+    }
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Constants
@@ -169,6 +176,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Follows penguin
         moveCamera()
+        
+        // Resets camera once penguin is done moving
+        checkPenguin()
     }
     
     // Called when a physics contact occurs
@@ -201,8 +211,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Called when seal dies
     func removeSeal(node: SKNode) {
-
-        
         
         // Create our hero death action
         let sealDeath = SKAction.run({
@@ -247,5 +255,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let targetX = cameraTarget.position.x
         let x = clamp(value: targetX, lower: 0, upper: 392)
         cameraNode.position.x = x
+    }
+    
+    // Resets the camera to the starting position
+    func resetCamera() {
+        let cameraReset = SKAction.move(to: CGPoint(x:0, y:camera!.position.y), duration: 1.5)
+        let cameraDelay = SKAction.wait(forDuration: 0.5)
+        let cameraSequence = SKAction.sequence([cameraDelay,cameraReset])
+        cameraNode.run(cameraSequence)
+        cameraTarget = nil
+    }
+    
+    // Checks to see if the current penguin is moving slowly or is off the screen
+    func checkPenguin() {
+        guard let cameraTarget = cameraTarget else {
+            return
+        }
+        
+        // Check if penguin is slow
+        if cameraTarget.physicsBody!.joints.count == 0 && cameraTarget.physicsBody!.velocity.length() < 0.3 {
+            resetCamera()
+        }
+        
+        // Check if penguin has fallen off the stage
+        if cameraTarget.position.y < -200 {
+            cameraTarget.removeFromParent()
+            resetCamera()
+        }
     }
 }
