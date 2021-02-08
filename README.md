@@ -1,2 +1,2 @@
 # iOS-Game-Peeved-Penguins
-Simple Angry Birds clone created at Make School.
+iOS Angry Birds clone created at Make School.
